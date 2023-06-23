@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>INHERITANCE and PROTOTYPE</title>
+</head>
+<style>
+	pre {
+		color: orangered;
+	}
+</style>
+<body style="background-color: papayawhip; color:blue ;">
+	<h1>INHERITANCE and PROTOTYPE</h1>
+	<hr />
+	<div>
+		<h2>
+			1. Create 2 objects - parent and child. Attach methods to parent and use
+			those methods in child object using parents prototype
+		</h2>
+
+		<pre>
+				let parent = {
+					display: function () {
+						console.log('Handson project 12');
+					},
+				};
+				
+				let child = Object.create(parent);
+				child.name = function () {
+					console.log('Inheritance and prototypes');
+				};
+				
+				child.name();
+				child.display();
+					
+		</pre>
+
+	</div>
+	<hr />
+	<div>
+		<h2>2. Write code to explain prototype chaining</h2>
+		<h4>Prototype Chaining:</h4>
+		Prototype chaining is a mechanism in JavaScript that allows objects to
+		inherit properties and methods from other objects. When a property or
+		method is accessed on an object, JavaScript will first look for it
+		directly on the object. If it doesn't find it, it will continue the
+		search on the object's prototype, and so on, creating a chain of
+		prototypes until the property or method is found or the end of the chain
+		is reached.
+
+		<pre>
+
+				function Laptop(Model, proccessor) {
+					this.Model = Model;
+					this.proccessor = proccessor;
+				}
+				Laptop.prototype.turnOn = function () {
+					console.log('Laptop');
+				};
+				
+				function Dell(Model, proccessor) {
+					Laptop.call(this, Model, proccessor);
+				}
+				
+				Dell.prototype = Object.create(car.prototype);
+				
+				Dell.prototype.run = function () {
+					console.log('My Dell laptop');
+				};
+				const mylaptop = new Dell(11, 'i5');
+				mylaptop.turnOn();
+				mylaptop.run();
+				console.log(mylaptop);
+								
+		</pre>
+
+	</div>
+	<hr />
+
+	<div>
+		<h2>
+			3. Add a method to calculate sum of all elements in Array in array's
+			protype, use that method to calculate sum for multiple arrays
+		</h2>
+
+		<pre>
+				Array.prototype.addFuntion = function () {
+					var sum = 0;
+					for (var i = 0; i < this.length; i++) {
+						sum += this[i];
+						}
+					return sum;
+				};
+				
+				var arr1 = [4, 5, 0, 0, 2];
+				var arr2 = [13, 23, 33];
+				var arr3 = [2, 4, 6, 8, 10, 12];
+				
+				var add1 = arr1.addFuntion();
+				var add2 = arr2.addFuntion();
+				var add3 = arr3.addFuntion();
+				
+				console.log(add1);
+				console.log(add2);
+				console.log(add3);
+				</pre>
+
+	</div>
+	<hr />
+	<div>
+		<h2>
+			4. Write a JavaScript function to retrieve all the names of object's own
+			and inherited properties.
+		</h2>
+
+		<pre>
+		 function Allproperties(obj) {
+			var Names = [];
+			
+			for (var prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					Names.push(prop);
+				}
+			}
+			var Property = Object.getPrototypeOf(obj);
+			if (Property !== null) {
+				var inheritedPropertyNames = Allproperties(Property);
+				Names = Names.concat(inheritedPropertyNames);
+			}
+
+		   return Names;
+		}
+				
+			// Example 
+
+			var obj = {
+				name: 'Shruthi',
+				age: 26,
+			};
+					
+			function Person() {
+				this.gender = 'Female';
+			}
+
+			Person.prototype = obj;
+					
+			var person = new Person();
+			person.city = 'Hyderabad';
+					
+			var NamesOfProperties = Allproperties(person);
+
+			console.log(NamesOfProperties);
+				</pre>
+
+	</div>
+	<script src="./script.js"></script>
+</body>
+
+</html>
